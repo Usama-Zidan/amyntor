@@ -1,0 +1,42 @@
+# Python bytecode and tool caches
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.ruff_cache/
+.pyright/
+.mypy_cache/
+
+# Virtual environments and local tooling
+.venv/
+.tools/
+
+# Test and coverage output
+.coverage
+.coverage.*
+htmlcov/
+
+# Local configuration and secrets
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+
+# Editors and operating systems
+.idea/
+.vscode/
+.DS_Store
+Thumbs.db
+
+# Dataset inputs, identifiers, and generated artifacts
+data/
+artifacts/
+models/
+evaluation/
+*.parquet
+*.joblib
+*.pkl
+
+# Logs and temporary files
+*.log
+*.tmp
