@@ -14,6 +14,18 @@ The project uses a standard Python `src` layout. Importable code belongs under
 architecture will become subpackages of `amyntor` only when their implementation
 stage requires them.
 
+Planned execution strategy: develop and test locally; run larger GUIDE inspection,
+preprocessing, training and evaluation on Kaggle when needed, using the same
+`src/amyntor/` code and `configs/`. Future notebooks only invoke package commands.
+Configure input/output paths explicitly; do not hard-code machine or Kaggle paths.
+GUIDE must pass G1–G8 before training in any environment. Final permitted Dataset,
+selected Model/cards and an inference Space/demo are planned for Hugging Face.
+No remote pipelines, notebooks or publication integrations exist yet. See
+[architecture and ADR-017](docs/architecture.md) and the
+[implementation plan](docs/implementation-plan.md).
+
+The next implementation task is **GUIDE acquisition / G1 only**.
+
 ## Development
 
 Create or update the locked development environment:
