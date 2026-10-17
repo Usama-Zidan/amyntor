@@ -29,7 +29,7 @@ htmlcov/
 Thumbs.db
 
 # Dataset inputs, identifiers, and generated artifacts
-data/
+/data/
 artifacts/
 models/
 evaluation/

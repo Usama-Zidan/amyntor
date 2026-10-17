@@ -1,0 +1,29 @@
+{
+  "lock_version": 1,
+  "dataset": "microsoft/microsoft-security-incident-prediction",
+  "publisher": "Microsoft",
+  "source": "https://www.kaggle.com/datasets/microsoft/microsoft-security-incident-prediction",
+  "version": 1,
+  "release_created_at": "2024-07-11T09:05:07.877Z",
+  "license": "CDLA-Permissive-2.0",
+  "checksum_provenance": "locally_generated_sha256",
+  "publisher_hashes": null,
+  "acquired_at_utc": "2026-10-17T01:26:12.066133+00:00",
+  "acquisition_manifest_sha256": "6388487c478c9193cd306aef2845a000d6cf3fb2e890b507a6f03db2cea11e8d",
+  "archive": {
+    "bytes": 538236447,
+    "sha256": "cb93c41a6aa48c91d59fa0304e67eac799e2c74fe6d968342540f650a296c7ea"
+  },
+  "files": [
+    {
+      "name": "GUIDE_Test.csv",
+      "bytes": 1087963831,
+      "sha256": "fdfd7523efd6e3c26bd0290ba6acbcb237196cf923dd56a28e96802035db35a3"
+    },
+    {
+      "name": "GUIDE_Train.csv",
+      "bytes": 2425409087,
+      "sha256": "3d6c286e1353236b3457a011a20cb9a8cec26a589ab685dab31dad261d47b8c3"
+    }
+  ]
+}

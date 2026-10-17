@@ -1,0 +1,22 @@
+# Verified against Microsoft's public Kaggle metadata on 2026-10-17.
+# Byte limits are acquisition safety budgets, not experiment-tier sizes.
+[source]
+version = 1
+created_at = "2024-07-11T09:05:07.877Z"
+license_sha256 = "4531a67d443284d93ffed0803df5b10634aff21c3d77e381f2d48af01d875868"
+
+[limits]
+archive_bytes = 600000000
+expanded_bytes = 3600000000
+metadata_bytes = 2097152
+timeout_seconds = 30
+total_seconds = 1800
+attempts = 3
+
+[[files]]
+name = "GUIDE_Test.csv"
+bytes = 1087963831
+
+[[files]]
+name = "GUIDE_Train.csv"
+bytes = 2425409087

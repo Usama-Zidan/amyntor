@@ -1,8 +1,8 @@
 # Amyntor
 
 Amyntor is a defensive incident-snapshot triage project. The repository currently
-contains only its Python engineering foundation; dataset acquisition, product code,
-modeling, APIs, and integrations remain intentionally unimplemented.
+contains its Python engineering foundation and G1 GUIDE acquisition tooling;
+schema validation, processing, modeling, APIs and integrations remain unimplemented.
 
 ## Requirements
 
@@ -24,7 +24,10 @@ No remote pipelines, notebooks or publication integrations exist yet. See
 [architecture and ADR-017](docs/architecture.md) and the
 [implementation plan](docs/implementation-plan.md).
 
-The next implementation task is **GUIDE acquisition / G1 only**.
+See [G1 acquisition commands and evidence](docs/acquisition.md). Training remains
+blocked; acquisition does not inspect schemas or pass G2–G8.
+GUIDE version 1 has been acquired and hashed locally. The next task after review
+is **schema acceptance / G2 only**; it has not begun.
 
 ## Development
 
@@ -46,9 +49,9 @@ uv run pytest
 If Windows Application Control blocks Pytest's generated executable launcher, run
 the equivalent `uv run python -m pytest` command.
 
-The current test suite checks the installation and metadata contract only. Product,
-dataset, and ML tests will be introduced with the stages that implement those
-behaviors.
+The current test suite checks installation/metadata and bounded acquisition using
+opaque synthetic artifacts, without network access. Product, schema and ML tests
+will accompany their implementation stages.
 
 ## Dependencies
 
