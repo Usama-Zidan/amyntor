@@ -1,0 +1,468 @@
+{
+  "contract_version": "guide-v1-schema-1",
+  "dataset": "microsoft/microsoft-security-incident-prediction",
+  "dataset_version": 1,
+  "source_manifest_sha256": "6388487c478c9193cd306aef2845a000d6cf3fb2e890b507a6f03db2cea11e8d",
+  "definition_source": "https://arxiv.org/html/2407.09017v4#A1",
+  "schema_basis": "Verified GUIDE v1 headers; lexical constraints are Amyntor contract decisions, not proof of field timing or semantic codebooks.",
+  "null_like_tokens": [
+    "NULL",
+    "null",
+    "NaN",
+    "nan",
+    "None",
+    "none",
+    "N/A",
+    "NA",
+    "<NA>"
+  ],
+  "sentinel_probe_tokens": [
+    "0",
+    "-1",
+    "Unknown",
+    "unknown",
+    "NotSet",
+    "None",
+    "N/A"
+  ],
+  "sentinel_interpretation": "Exact lexical probes only; zero is not assumed missing. Encoded placeholder/codebook semantics remain unresolved.",
+  "columns": [
+    {
+      "name": "Id",
+      "role": "dataset_metadata",
+      "representation": "unsigned_integer_string",
+      "nullable": true,
+      "model_status": "EXCLUDED"
+    },
+    {
+      "name": "OrgId",
+      "role": "required_identifier",
+      "representation": "unsigned_integer_string",
+      "nullable": false,
+      "model_status": "EXCLUDED"
+    },
+    {
+      "name": "IncidentId",
+      "role": "required_identifier",
+      "representation": "unsigned_integer_string",
+      "nullable": false,
+      "model_status": "EXCLUDED"
+    },
+    {
+      "name": "AlertId",
+      "role": "required_identifier",
+      "representation": "unsigned_integer_string",
+      "nullable": false,
+      "model_status": "EXCLUDED"
+    },
+    {
+      "name": "Timestamp",
+      "role": "dataset_metadata",
+      "representation": "timestamp",
+      "nullable": true,
+      "model_status": "EXCLUDED"
+    },
+    {
+      "name": "DetectorId",
+      "role": "excluded",
+      "representation": "opaque_string",
+      "nullable": true,
+      "model_status": "EXCLUDED"
+    },
+    {
+      "name": "AlertTitle",
+      "role": "excluded",
+      "representation": "opaque_string",
+      "nullable": true,
+      "model_status": "EXCLUDED"
+    },
+    {
+      "name": "Category",
+      "role": "candidate_input",
+      "representation": "categorical_text",
+      "nullable": true,
+      "model_status": "UNRESOLVED"
+    },
+    {
+      "name": "MitreTechniques",
+      "role": "excluded",
+      "representation": "opaque_string",
+      "nullable": true,
+      "model_status": "EXCLUDED"
+    },
+    {
+      "name": "IncidentGrade",
+      "role": "target",
+      "representation": "enum_string",
+      "nullable": true,
+      "model_status": "EXCLUDED",
+      "allowed_values": [
+        "TruePositive",
+        "BenignPositive",
+        "FalsePositive"
+      ]
+    },
+    {
+      "name": "ActionGrouped",
+      "role": "excluded",
+      "representation": "opaque_string",
+      "nullable": true,
+      "model_status": "EXCLUDED"
+    },
+    {
+      "name": "ActionGranular",
+      "role": "excluded",
+      "representation": "opaque_string",
+      "nullable": true,
+      "model_status": "EXCLUDED"
+    },
+    {
+      "name": "EntityType",
+      "role": "candidate_input",
+      "representation": "categorical_text",
+      "nullable": true,
+      "model_status": "UNRESOLVED"
+    },
+    {
+      "name": "EvidenceRole",
+      "role": "excluded",
+      "representation": "opaque_string",
+      "nullable": true,
+      "model_status": "EXCLUDED"
+    },
+    {
+      "name": "DeviceId",
+      "role": "excluded",
+      "representation": "opaque_string",
+      "nullable": true,
+      "model_status": "EXCLUDED"
+    },
+    {
+      "name": "Sha256",
+      "role": "excluded",
+      "representation": "opaque_string",
+      "nullable": true,
+      "model_status": "EXCLUDED"
+    },
+    {
+      "name": "IpAddress",
+      "role": "excluded",
+      "representation": "opaque_string",
+      "nullable": true,
+      "model_status": "EXCLUDED"
+    },
+    {
+      "name": "Url",
+      "role": "excluded",
+      "representation": "opaque_string",
+      "nullable": true,
+      "model_status": "EXCLUDED"
+    },
+    {
+      "name": "AccountSid",
+      "role": "excluded",
+      "representation": "opaque_string",
+      "nullable": true,
+      "model_status": "EXCLUDED"
+    },
+    {
+      "name": "AccountUpn",
+      "role": "excluded",
+      "representation": "opaque_string",
+      "nullable": true,
+      "model_status": "EXCLUDED"
+    },
+    {
+      "name": "AccountObjectId",
+      "role": "excluded",
+      "representation": "opaque_string",
+      "nullable": true,
+      "model_status": "EXCLUDED"
+    },
+    {
+      "name": "AccountName",
+      "role": "excluded",
+      "representation": "opaque_string",
+      "nullable": true,
+      "model_status": "EXCLUDED"
+    },
+    {
+      "name": "DeviceName",
+      "role": "excluded",
+      "representation": "opaque_string",
+      "nullable": true,
+      "model_status": "EXCLUDED"
+    },
+    {
+      "name": "NetworkMessageId",
+      "role": "excluded",
+      "representation": "opaque_string",
+      "nullable": true,
+      "model_status": "EXCLUDED"
+    },
+    {
+      "name": "EmailClusterId",
+      "role": "excluded",
+      "representation": "opaque_string",
+      "nullable": true,
+      "model_status": "EXCLUDED"
+    },
+    {
+      "name": "RegistryKey",
+      "role": "excluded",
+      "representation": "opaque_string",
+      "nullable": true,
+      "model_status": "EXCLUDED"
+    },
+    {
+      "name": "RegistryValueName",
+      "role": "excluded",
+      "representation": "opaque_string",
+      "nullable": true,
+      "model_status": "EXCLUDED"
+    },
+    {
+      "name": "RegistryValueData",
+      "role": "excluded",
+      "representation": "opaque_string",
+      "nullable": true,
+      "model_status": "EXCLUDED"
+    },
+    {
+      "name": "ApplicationId",
+      "role": "excluded",
+      "representation": "opaque_string",
+      "nullable": true,
+      "model_status": "EXCLUDED"
+    },
+    {
+      "name": "ApplicationName",
+      "role": "excluded",
+      "representation": "opaque_string",
+      "nullable": true,
+      "model_status": "EXCLUDED"
+    },
+    {
+      "name": "OAuthApplicationId",
+      "role": "excluded",
+      "representation": "opaque_string",
+      "nullable": true,
+      "model_status": "EXCLUDED"
+    },
+    {
+      "name": "ThreatFamily",
+      "role": "excluded",
+      "representation": "opaque_string",
+      "nullable": true,
+      "model_status": "EXCLUDED"
+    },
+    {
+      "name": "FileName",
+      "role": "excluded",
+      "representation": "opaque_string",
+      "nullable": true,
+      "model_status": "EXCLUDED"
+    },
+    {
+      "name": "FolderPath",
+      "role": "excluded",
+      "representation": "opaque_string",
+      "nullable": true,
+      "model_status": "EXCLUDED"
+    },
+    {
+      "name": "ResourceIdName",
+      "role": "excluded",
+      "representation": "opaque_string",
+      "nullable": true,
+      "model_status": "EXCLUDED"
+    },
+    {
+      "name": "ResourceType",
+      "role": "candidate_input",
+      "representation": "categorical_text",
+      "nullable": true,
+      "model_status": "UNRESOLVED"
+    },
+    {
+      "name": "Roles",
+      "role": "excluded",
+      "representation": "opaque_string",
+      "nullable": true,
+      "model_status": "EXCLUDED"
+    },
+    {
+      "name": "OSFamily",
+      "role": "candidate_input",
+      "representation": "unsigned_integer_string",
+      "nullable": true,
+      "model_status": "UNRESOLVED"
+    },
+    {
+      "name": "OSVersion",
+      "role": "candidate_input",
+      "representation": "unsigned_integer_string",
+      "nullable": true,
+      "model_status": "UNRESOLVED"
+    },
+    {
+      "name": "AntispamDirection",
+      "role": "candidate_input",
+      "representation": "categorical_text",
+      "nullable": true,
+      "model_status": "UNRESOLVED"
+    },
+    {
+      "name": "SuspicionLevel",
+      "role": "excluded",
+      "representation": "opaque_string",
+      "nullable": true,
+      "model_status": "EXCLUDED"
+    },
+    {
+      "name": "LastVerdict",
+      "role": "excluded",
+      "representation": "opaque_string",
+      "nullable": true,
+      "model_status": "EXCLUDED"
+    },
+    {
+      "name": "CountryCode",
+      "role": "excluded",
+      "representation": "opaque_string",
+      "nullable": true,
+      "model_status": "EXCLUDED"
+    },
+    {
+      "name": "State",
+      "role": "excluded",
+      "representation": "opaque_string",
+      "nullable": true,
+      "model_status": "EXCLUDED"
+    },
+    {
+      "name": "City",
+      "role": "excluded",
+      "representation": "opaque_string",
+      "nullable": true,
+      "model_status": "EXCLUDED"
+    },
+    {
+      "name": "Usage",
+      "role": "dataset_metadata",
+      "representation": "enum_string",
+      "nullable": true,
+      "model_status": "EXCLUDED",
+      "allowed_values": [
+        "Public",
+        "Private"
+      ],
+      "notes": "Observed test-only release metadata; publisher meaning unestablished. Never a predictor or authority for Amyntor splits."
+    }
+  ],
+  "files": [
+    {
+      "name": "GUIDE_Test.csv",
+      "role": "original_source_test_partition; not an Amyntor evaluation-role assignment",
+      "header": [
+        "Id",
+        "OrgId",
+        "IncidentId",
+        "AlertId",
+        "Timestamp",
+        "DetectorId",
+        "AlertTitle",
+        "Category",
+        "MitreTechniques",
+        "IncidentGrade",
+        "ActionGrouped",
+        "ActionGranular",
+        "EntityType",
+        "EvidenceRole",
+        "DeviceId",
+        "Sha256",
+        "IpAddress",
+        "Url",
+        "AccountSid",
+        "AccountUpn",
+        "AccountObjectId",
+        "AccountName",
+        "DeviceName",
+        "NetworkMessageId",
+        "EmailClusterId",
+        "RegistryKey",
+        "RegistryValueName",
+        "RegistryValueData",
+        "ApplicationId",
+        "ApplicationName",
+        "OAuthApplicationId",
+        "ThreatFamily",
+        "FileName",
+        "FolderPath",
+        "ResourceIdName",
+        "ResourceType",
+        "Roles",
+        "OSFamily",
+        "OSVersion",
+        "AntispamDirection",
+        "SuspicionLevel",
+        "LastVerdict",
+        "CountryCode",
+        "State",
+        "City",
+        "Usage"
+      ]
+    },
+    {
+      "name": "GUIDE_Train.csv",
+      "role": "original_source_training_partition; not an Amyntor fitting-role assignment",
+      "header": [
+        "Id",
+        "OrgId",
+        "IncidentId",
+        "AlertId",
+        "Timestamp",
+        "DetectorId",
+        "AlertTitle",
+        "Category",
+        "MitreTechniques",
+        "IncidentGrade",
+        "ActionGrouped",
+        "ActionGranular",
+        "EntityType",
+        "EvidenceRole",
+        "DeviceId",
+        "Sha256",
+        "IpAddress",
+        "Url",
+        "AccountSid",
+        "AccountUpn",
+        "AccountObjectId",
+        "AccountName",
+        "DeviceName",
+        "NetworkMessageId",
+        "EmailClusterId",
+        "RegistryKey",
+        "RegistryValueName",
+        "RegistryValueData",
+        "ApplicationId",
+        "ApplicationName",
+        "OAuthApplicationId",
+        "ThreatFamily",
+        "FileName",
+        "FolderPath",
+        "ResourceIdName",
+        "ResourceType",
+        "Roles",
+        "OSFamily",
+        "OSVersion",
+        "AntispamDirection",
+        "SuspicionLevel",
+        "LastVerdict",
+        "CountryCode",
+        "State",
+        "City"
+      ]
+    }
+  ]
+}

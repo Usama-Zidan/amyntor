@@ -1,0 +1,821 @@
+{
+  "version": "guide-v1-provenance-1",
+  "scope": "retrospective-incident-snapshot-only",
+  "training_allowed": false,
+  "statistical_leakage_clearance": "PENDING_G5",
+  "source_contract_sha256": "23897a05ba8c1ff4ddc33344358dd53e6a1ac06192edb3ebf74933c2991f075c",
+  "g3": {
+    "reconstruction_sha256": "b44e8e10b341b34f3695eba178000c1281ebf2fb33e2a730be3eea5fe0b8f4c4",
+    "report_sha256": "46fd02474c6c9546a3f4a384e6a7125f90f2856a0841bc1be8968828acc4a48c",
+    "database_sha256": "fc7b1eae80cfea121b6e75e0bed08c89f788582d3be62b36421329e5d479bba2",
+    "database_bytes": 12313366528
+  },
+  "references": {
+    "guide": "https://arxiv.org/html/2407.09017v4#A1",
+    "guide_pipeline": "https://arxiv.org/html/2407.09017v4#S4.SS1",
+    "schema": "docs/schema-validation.md",
+    "g3": "docs/g3-acceptance.md",
+    "policy": "docs/datasets.md#3-roles-and-strict-feature-provenance-contract"
+  },
+  "accepted_fields": [
+    "Category",
+    "EntityType",
+    "snapshot_local_distinct_alert_count"
+  ],
+  "fields": [
+    {
+      "name": "Id",
+      "role": "dataset_metadata",
+      "status": "EXCLUDED",
+      "source_references": [
+        "schema",
+        "policy"
+      ],
+      "raw_representation": "unsigned_integer_string",
+      "null_rule": "not-projected",
+      "transformation": "not-projected",
+      "snapshot_availability": "Not authorized as model input.",
+      "point_in_time_availability": "unproven",
+      "leakage_risk": "Identity, target, outcome, enrichment or unreviewed-context shortcuts are excluded by strict projection.",
+      "rationale": "Outside the approved candidate ceiling; retained only for its documented source/metadata role, never a predictor."
+    },
+    {
+      "name": "OrgId",
+      "role": "required_identifier",
+      "status": "EXCLUDED",
+      "source_references": [
+        "schema",
+        "policy"
+      ],
+      "raw_representation": "unsigned_integer_string",
+      "null_rule": "not-projected",
+      "transformation": "not-projected",
+      "snapshot_availability": "Not authorized as model input.",
+      "point_in_time_availability": "unproven",
+      "leakage_risk": "Identity, target, outcome, enrichment or unreviewed-context shortcuts are excluded by strict projection.",
+      "rationale": "Outside the approved candidate ceiling; retained only for its documented source/metadata role, never a predictor."
+    },
+    {
+      "name": "IncidentId",
+      "role": "required_identifier",
+      "status": "EXCLUDED",
+      "source_references": [
+        "schema",
+        "policy"
+      ],
+      "raw_representation": "unsigned_integer_string",
+      "null_rule": "not-projected",
+      "transformation": "not-projected",
+      "snapshot_availability": "Not authorized as model input.",
+      "point_in_time_availability": "unproven",
+      "leakage_risk": "Identity, target, outcome, enrichment or unreviewed-context shortcuts are excluded by strict projection.",
+      "rationale": "Outside the approved candidate ceiling; retained only for its documented source/metadata role, never a predictor."
+    },
+    {
+      "name": "AlertId",
+      "role": "required_identifier",
+      "status": "EXCLUDED",
+      "source_references": [
+        "schema",
+        "policy"
+      ],
+      "raw_representation": "unsigned_integer_string",
+      "null_rule": "not-projected",
+      "transformation": "not-projected",
+      "snapshot_availability": "Not authorized as model input.",
+      "point_in_time_availability": "unproven",
+      "leakage_risk": "Identity, target, outcome, enrichment or unreviewed-context shortcuts are excluded by strict projection.",
+      "rationale": "Outside the approved candidate ceiling; retained only for its documented source/metadata role, never a predictor."
+    },
+    {
+      "name": "Timestamp",
+      "role": "dataset_metadata",
+      "status": "EXCLUDED",
+      "source_references": [
+        "schema",
+        "policy"
+      ],
+      "raw_representation": "timestamp",
+      "null_rule": "not-projected",
+      "transformation": "not-projected",
+      "snapshot_availability": "Not authorized as model input.",
+      "point_in_time_availability": "unproven",
+      "leakage_risk": "Identity, target, outcome, enrichment or unreviewed-context shortcuts are excluded by strict projection.",
+      "rationale": "Outside the approved candidate ceiling; retained only for its documented source/metadata role, never a predictor."
+    },
+    {
+      "name": "DetectorId",
+      "role": "excluded",
+      "status": "EXCLUDED",
+      "source_references": [
+        "schema",
+        "policy"
+      ],
+      "raw_representation": "opaque_string",
+      "null_rule": "not-projected",
+      "transformation": "not-projected",
+      "snapshot_availability": "Not authorized as model input.",
+      "point_in_time_availability": "unproven",
+      "leakage_risk": "Identity, target, outcome, enrichment or unreviewed-context shortcuts are excluded by strict projection.",
+      "rationale": "Outside the approved candidate ceiling; retained only for its documented source/metadata role, never a predictor."
+    },
+    {
+      "name": "AlertTitle",
+      "role": "excluded",
+      "status": "EXCLUDED",
+      "source_references": [
+        "schema",
+        "policy"
+      ],
+      "raw_representation": "opaque_string",
+      "null_rule": "not-projected",
+      "transformation": "not-projected",
+      "snapshot_availability": "Not authorized as model input.",
+      "point_in_time_availability": "unproven",
+      "leakage_risk": "Identity, target, outcome, enrichment or unreviewed-context shortcuts are excluded by strict projection.",
+      "rationale": "Outside the approved candidate ceiling; retained only for its documented source/metadata role, never a predictor."
+    },
+    {
+      "name": "Category",
+      "role": "candidate_input",
+      "status": "ACCEPTED",
+      "source_references": [
+        "guide",
+        "guide_pipeline",
+        "schema",
+        "g3",
+        "policy"
+      ],
+      "raw_representation": "categorical_text",
+      "null_rule": "empty-is-observed-absence-v1",
+      "transformation": "alert-set-presence-fraction-v1",
+      "snapshot_availability": "The caller supplies the category in the same retrospective incident snapshot; historical point-in-time availability is unproven.",
+      "point_in_time_availability": "unproven",
+      "leakage_risk": "Evolved membership and organizational detection choices may correlate with disposition; no labels/actions/IDs or temporal values are projected. Statistical clearance remains G5.",
+      "rationale": "Accepted only as supplied retrospective alert context: publisher separates alert category from incident grade; G2 observed nonempty categorical text and G3 v2 reports no incident-local metadata conflicts. No first-arrival or independent attack-family claim."
+    },
+    {
+      "name": "MitreTechniques",
+      "role": "excluded",
+      "status": "EXCLUDED",
+      "source_references": [
+        "schema",
+        "policy"
+      ],
+      "raw_representation": "opaque_string",
+      "null_rule": "not-projected",
+      "transformation": "not-projected",
+      "snapshot_availability": "Not authorized as model input.",
+      "point_in_time_availability": "unproven",
+      "leakage_risk": "Identity, target, outcome, enrichment or unreviewed-context shortcuts are excluded by strict projection.",
+      "rationale": "Outside the approved candidate ceiling; retained only for its documented source/metadata role, never a predictor."
+    },
+    {
+      "name": "IncidentGrade",
+      "role": "target",
+      "status": "EXCLUDED",
+      "source_references": [
+        "schema",
+        "policy"
+      ],
+      "raw_representation": "enum_string",
+      "null_rule": "not-projected",
+      "transformation": "not-projected",
+      "snapshot_availability": "Not authorized as model input.",
+      "point_in_time_availability": "unproven",
+      "leakage_risk": "Identity, target, outcome, enrichment or unreviewed-context shortcuts are excluded by strict projection.",
+      "rationale": "Outside the approved candidate ceiling; retained only for its documented source/metadata role, never a predictor."
+    },
+    {
+      "name": "ActionGrouped",
+      "role": "excluded",
+      "status": "EXCLUDED",
+      "source_references": [
+        "schema",
+        "policy"
+      ],
+      "raw_representation": "opaque_string",
+      "null_rule": "not-projected",
+      "transformation": "not-projected",
+      "snapshot_availability": "Not authorized as model input.",
+      "point_in_time_availability": "unproven",
+      "leakage_risk": "Identity, target, outcome, enrichment or unreviewed-context shortcuts are excluded by strict projection.",
+      "rationale": "Outside the approved candidate ceiling; retained only for its documented source/metadata role, never a predictor."
+    },
+    {
+      "name": "ActionGranular",
+      "role": "excluded",
+      "status": "EXCLUDED",
+      "source_references": [
+        "schema",
+        "policy"
+      ],
+      "raw_representation": "opaque_string",
+      "null_rule": "not-projected",
+      "transformation": "not-projected",
+      "snapshot_availability": "Not authorized as model input.",
+      "point_in_time_availability": "unproven",
+      "leakage_risk": "Identity, target, outcome, enrichment or unreviewed-context shortcuts are excluded by strict projection.",
+      "rationale": "Outside the approved candidate ceiling; retained only for its documented source/metadata role, never a predictor."
+    },
+    {
+      "name": "EntityType",
+      "role": "candidate_input",
+      "status": "ACCEPTED",
+      "source_references": [
+        "guide",
+        "schema",
+        "g3",
+        "policy"
+      ],
+      "raw_representation": "categorical_text",
+      "null_rule": "empty-is-observed-absence-v1",
+      "transformation": "alert-set-presence-fraction-v1",
+      "snapshot_availability": "The caller supplies evidence types present in the supplied snapshot; no pre-investigation availability claim.",
+      "point_in_time_availability": "unproven",
+      "leakage_risk": "Evidence membership may reflect investigation. Repeated evidence is set-deduplicated per incident-local alert; labels, evidence verdicts and roles are excluded. G5 remains pending.",
+      "rationale": "Accepted only as supplied retrospective evidence-type context: publisher defines typed evidence separately from incident grade; G2 observed nonempty categorical strings. Evidence accumulation is explicitly part of the snapshot limitation."
+    },
+    {
+      "name": "EvidenceRole",
+      "role": "excluded",
+      "status": "EXCLUDED",
+      "source_references": [
+        "schema",
+        "policy"
+      ],
+      "raw_representation": "opaque_string",
+      "null_rule": "not-projected",
+      "transformation": "not-projected",
+      "snapshot_availability": "Not authorized as model input.",
+      "point_in_time_availability": "unproven",
+      "leakage_risk": "Identity, target, outcome, enrichment or unreviewed-context shortcuts are excluded by strict projection.",
+      "rationale": "Outside the approved candidate ceiling; retained only for its documented source/metadata role, never a predictor."
+    },
+    {
+      "name": "DeviceId",
+      "role": "excluded",
+      "status": "EXCLUDED",
+      "source_references": [
+        "schema",
+        "policy"
+      ],
+      "raw_representation": "opaque_string",
+      "null_rule": "not-projected",
+      "transformation": "not-projected",
+      "snapshot_availability": "Not authorized as model input.",
+      "point_in_time_availability": "unproven",
+      "leakage_risk": "Identity, target, outcome, enrichment or unreviewed-context shortcuts are excluded by strict projection.",
+      "rationale": "Outside the approved candidate ceiling; retained only for its documented source/metadata role, never a predictor."
+    },
+    {
+      "name": "Sha256",
+      "role": "excluded",
+      "status": "EXCLUDED",
+      "source_references": [
+        "schema",
+        "policy"
+      ],
+      "raw_representation": "opaque_string",
+      "null_rule": "not-projected",
+      "transformation": "not-projected",
+      "snapshot_availability": "Not authorized as model input.",
+      "point_in_time_availability": "unproven",
+      "leakage_risk": "Identity, target, outcome, enrichment or unreviewed-context shortcuts are excluded by strict projection.",
+      "rationale": "Outside the approved candidate ceiling; retained only for its documented source/metadata role, never a predictor."
+    },
+    {
+      "name": "IpAddress",
+      "role": "excluded",
+      "status": "EXCLUDED",
+      "source_references": [
+        "schema",
+        "policy"
+      ],
+      "raw_representation": "opaque_string",
+      "null_rule": "not-projected",
+      "transformation": "not-projected",
+      "snapshot_availability": "Not authorized as model input.",
+      "point_in_time_availability": "unproven",
+      "leakage_risk": "Identity, target, outcome, enrichment or unreviewed-context shortcuts are excluded by strict projection.",
+      "rationale": "Outside the approved candidate ceiling; retained only for its documented source/metadata role, never a predictor."
+    },
+    {
+      "name": "Url",
+      "role": "excluded",
+      "status": "EXCLUDED",
+      "source_references": [
+        "schema",
+        "policy"
+      ],
+      "raw_representation": "opaque_string",
+      "null_rule": "not-projected",
+      "transformation": "not-projected",
+      "snapshot_availability": "Not authorized as model input.",
+      "point_in_time_availability": "unproven",
+      "leakage_risk": "Identity, target, outcome, enrichment or unreviewed-context shortcuts are excluded by strict projection.",
+      "rationale": "Outside the approved candidate ceiling; retained only for its documented source/metadata role, never a predictor."
+    },
+    {
+      "name": "AccountSid",
+      "role": "excluded",
+      "status": "EXCLUDED",
+      "source_references": [
+        "schema",
+        "policy"
+      ],
+      "raw_representation": "opaque_string",
+      "null_rule": "not-projected",
+      "transformation": "not-projected",
+      "snapshot_availability": "Not authorized as model input.",
+      "point_in_time_availability": "unproven",
+      "leakage_risk": "Identity, target, outcome, enrichment or unreviewed-context shortcuts are excluded by strict projection.",
+      "rationale": "Outside the approved candidate ceiling; retained only for its documented source/metadata role, never a predictor."
+    },
+    {
+      "name": "AccountUpn",
+      "role": "excluded",
+      "status": "EXCLUDED",
+      "source_references": [
+        "schema",
+        "policy"
+      ],
+      "raw_representation": "opaque_string",
+      "null_rule": "not-projected",
+      "transformation": "not-projected",
+      "snapshot_availability": "Not authorized as model input.",
+      "point_in_time_availability": "unproven",
+      "leakage_risk": "Identity, target, outcome, enrichment or unreviewed-context shortcuts are excluded by strict projection.",
+      "rationale": "Outside the approved candidate ceiling; retained only for its documented source/metadata role, never a predictor."
+    },
+    {
+      "name": "AccountObjectId",
+      "role": "excluded",
+      "status": "EXCLUDED",
+      "source_references": [
+        "schema",
+        "policy"
+      ],
+      "raw_representation": "opaque_string",
+      "null_rule": "not-projected",
+      "transformation": "not-projected",
+      "snapshot_availability": "Not authorized as model input.",
+      "point_in_time_availability": "unproven",
+      "leakage_risk": "Identity, target, outcome, enrichment or unreviewed-context shortcuts are excluded by strict projection.",
+      "rationale": "Outside the approved candidate ceiling; retained only for its documented source/metadata role, never a predictor."
+    },
+    {
+      "name": "AccountName",
+      "role": "excluded",
+      "status": "EXCLUDED",
+      "source_references": [
+        "schema",
+        "policy"
+      ],
+      "raw_representation": "opaque_string",
+      "null_rule": "not-projected",
+      "transformation": "not-projected",
+      "snapshot_availability": "Not authorized as model input.",
+      "point_in_time_availability": "unproven",
+      "leakage_risk": "Identity, target, outcome, enrichment or unreviewed-context shortcuts are excluded by strict projection.",
+      "rationale": "Outside the approved candidate ceiling; retained only for its documented source/metadata role, never a predictor."
+    },
+    {
+      "name": "DeviceName",
+      "role": "excluded",
+      "status": "EXCLUDED",
+      "source_references": [
+        "schema",
+        "policy"
+      ],
+      "raw_representation": "opaque_string",
+      "null_rule": "not-projected",
+      "transformation": "not-projected",
+      "snapshot_availability": "Not authorized as model input.",
+      "point_in_time_availability": "unproven",
+      "leakage_risk": "Identity, target, outcome, enrichment or unreviewed-context shortcuts are excluded by strict projection.",
+      "rationale": "Outside the approved candidate ceiling; retained only for its documented source/metadata role, never a predictor."
+    },
+    {
+      "name": "NetworkMessageId",
+      "role": "excluded",
+      "status": "EXCLUDED",
+      "source_references": [
+        "schema",
+        "policy"
+      ],
+      "raw_representation": "opaque_string",
+      "null_rule": "not-projected",
+      "transformation": "not-projected",
+      "snapshot_availability": "Not authorized as model input.",
+      "point_in_time_availability": "unproven",
+      "leakage_risk": "Identity, target, outcome, enrichment or unreviewed-context shortcuts are excluded by strict projection.",
+      "rationale": "Outside the approved candidate ceiling; retained only for its documented source/metadata role, never a predictor."
+    },
+    {
+      "name": "EmailClusterId",
+      "role": "excluded",
+      "status": "EXCLUDED",
+      "source_references": [
+        "schema",
+        "policy"
+      ],
+      "raw_representation": "opaque_string",
+      "null_rule": "not-projected",
+      "transformation": "not-projected",
+      "snapshot_availability": "Not authorized as model input.",
+      "point_in_time_availability": "unproven",
+      "leakage_risk": "Identity, target, outcome, enrichment or unreviewed-context shortcuts are excluded by strict projection.",
+      "rationale": "Outside the approved candidate ceiling; retained only for its documented source/metadata role, never a predictor."
+    },
+    {
+      "name": "RegistryKey",
+      "role": "excluded",
+      "status": "EXCLUDED",
+      "source_references": [
+        "schema",
+        "policy"
+      ],
+      "raw_representation": "opaque_string",
+      "null_rule": "not-projected",
+      "transformation": "not-projected",
+      "snapshot_availability": "Not authorized as model input.",
+      "point_in_time_availability": "unproven",
+      "leakage_risk": "Identity, target, outcome, enrichment or unreviewed-context shortcuts are excluded by strict projection.",
+      "rationale": "Outside the approved candidate ceiling; retained only for its documented source/metadata role, never a predictor."
+    },
+    {
+      "name": "RegistryValueName",
+      "role": "excluded",
+      "status": "EXCLUDED",
+      "source_references": [
+        "schema",
+        "policy"
+      ],
+      "raw_representation": "opaque_string",
+      "null_rule": "not-projected",
+      "transformation": "not-projected",
+      "snapshot_availability": "Not authorized as model input.",
+      "point_in_time_availability": "unproven",
+      "leakage_risk": "Identity, target, outcome, enrichment or unreviewed-context shortcuts are excluded by strict projection.",
+      "rationale": "Outside the approved candidate ceiling; retained only for its documented source/metadata role, never a predictor."
+    },
+    {
+      "name": "RegistryValueData",
+      "role": "excluded",
+      "status": "EXCLUDED",
+      "source_references": [
+        "schema",
+        "policy"
+      ],
+      "raw_representation": "opaque_string",
+      "null_rule": "not-projected",
+      "transformation": "not-projected",
+      "snapshot_availability": "Not authorized as model input.",
+      "point_in_time_availability": "unproven",
+      "leakage_risk": "Identity, target, outcome, enrichment or unreviewed-context shortcuts are excluded by strict projection.",
+      "rationale": "Outside the approved candidate ceiling; retained only for its documented source/metadata role, never a predictor."
+    },
+    {
+      "name": "ApplicationId",
+      "role": "excluded",
+      "status": "EXCLUDED",
+      "source_references": [
+        "schema",
+        "policy"
+      ],
+      "raw_representation": "opaque_string",
+      "null_rule": "not-projected",
+      "transformation": "not-projected",
+      "snapshot_availability": "Not authorized as model input.",
+      "point_in_time_availability": "unproven",
+      "leakage_risk": "Identity, target, outcome, enrichment or unreviewed-context shortcuts are excluded by strict projection.",
+      "rationale": "Outside the approved candidate ceiling; retained only for its documented source/metadata role, never a predictor."
+    },
+    {
+      "name": "ApplicationName",
+      "role": "excluded",
+      "status": "EXCLUDED",
+      "source_references": [
+        "schema",
+        "policy"
+      ],
+      "raw_representation": "opaque_string",
+      "null_rule": "not-projected",
+      "transformation": "not-projected",
+      "snapshot_availability": "Not authorized as model input.",
+      "point_in_time_availability": "unproven",
+      "leakage_risk": "Identity, target, outcome, enrichment or unreviewed-context shortcuts are excluded by strict projection.",
+      "rationale": "Outside the approved candidate ceiling; retained only for its documented source/metadata role, never a predictor."
+    },
+    {
+      "name": "OAuthApplicationId",
+      "role": "excluded",
+      "status": "EXCLUDED",
+      "source_references": [
+        "schema",
+        "policy"
+      ],
+      "raw_representation": "opaque_string",
+      "null_rule": "not-projected",
+      "transformation": "not-projected",
+      "snapshot_availability": "Not authorized as model input.",
+      "point_in_time_availability": "unproven",
+      "leakage_risk": "Identity, target, outcome, enrichment or unreviewed-context shortcuts are excluded by strict projection.",
+      "rationale": "Outside the approved candidate ceiling; retained only for its documented source/metadata role, never a predictor."
+    },
+    {
+      "name": "ThreatFamily",
+      "role": "excluded",
+      "status": "EXCLUDED",
+      "source_references": [
+        "schema",
+        "policy"
+      ],
+      "raw_representation": "opaque_string",
+      "null_rule": "not-projected",
+      "transformation": "not-projected",
+      "snapshot_availability": "Not authorized as model input.",
+      "point_in_time_availability": "unproven",
+      "leakage_risk": "Identity, target, outcome, enrichment or unreviewed-context shortcuts are excluded by strict projection.",
+      "rationale": "Outside the approved candidate ceiling; retained only for its documented source/metadata role, never a predictor."
+    },
+    {
+      "name": "FileName",
+      "role": "excluded",
+      "status": "EXCLUDED",
+      "source_references": [
+        "schema",
+        "policy"
+      ],
+      "raw_representation": "opaque_string",
+      "null_rule": "not-projected",
+      "transformation": "not-projected",
+      "snapshot_availability": "Not authorized as model input.",
+      "point_in_time_availability": "unproven",
+      "leakage_risk": "Identity, target, outcome, enrichment or unreviewed-context shortcuts are excluded by strict projection.",
+      "rationale": "Outside the approved candidate ceiling; retained only for its documented source/metadata role, never a predictor."
+    },
+    {
+      "name": "FolderPath",
+      "role": "excluded",
+      "status": "EXCLUDED",
+      "source_references": [
+        "schema",
+        "policy"
+      ],
+      "raw_representation": "opaque_string",
+      "null_rule": "not-projected",
+      "transformation": "not-projected",
+      "snapshot_availability": "Not authorized as model input.",
+      "point_in_time_availability": "unproven",
+      "leakage_risk": "Identity, target, outcome, enrichment or unreviewed-context shortcuts are excluded by strict projection.",
+      "rationale": "Outside the approved candidate ceiling; retained only for its documented source/metadata role, never a predictor."
+    },
+    {
+      "name": "ResourceIdName",
+      "role": "excluded",
+      "status": "EXCLUDED",
+      "source_references": [
+        "schema",
+        "policy"
+      ],
+      "raw_representation": "opaque_string",
+      "null_rule": "not-projected",
+      "transformation": "not-projected",
+      "snapshot_availability": "Not authorized as model input.",
+      "point_in_time_availability": "unproven",
+      "leakage_risk": "Identity, target, outcome, enrichment or unreviewed-context shortcuts are excluded by strict projection.",
+      "rationale": "Outside the approved candidate ceiling; retained only for its documented source/metadata role, never a predictor."
+    },
+    {
+      "name": "ResourceType",
+      "role": "candidate_input",
+      "status": "EXCLUDED",
+      "source_references": [
+        "guide",
+        "schema",
+        "policy"
+      ],
+      "raw_representation": "categorical_text",
+      "null_rule": "empty-is-observed-absence-v1",
+      "transformation": "not-projected",
+      "snapshot_availability": "Not authorized as model input.",
+      "point_in_time_availability": "unproven",
+      "leakage_risk": "Identity, target, outcome, enrichment or unreviewed-context shortcuts are excluded by strict projection.",
+      "rationale": "Excluded: encoded missingness/applicability or enrichment lineage is not sufficiently established for this optional field."
+    },
+    {
+      "name": "Roles",
+      "role": "excluded",
+      "status": "EXCLUDED",
+      "source_references": [
+        "schema",
+        "policy"
+      ],
+      "raw_representation": "opaque_string",
+      "null_rule": "not-projected",
+      "transformation": "not-projected",
+      "snapshot_availability": "Not authorized as model input.",
+      "point_in_time_availability": "unproven",
+      "leakage_risk": "Identity, target, outcome, enrichment or unreviewed-context shortcuts are excluded by strict projection.",
+      "rationale": "Outside the approved candidate ceiling; retained only for its documented source/metadata role, never a predictor."
+    },
+    {
+      "name": "OSFamily",
+      "role": "candidate_input",
+      "status": "EXCLUDED",
+      "source_references": [
+        "guide",
+        "schema",
+        "policy"
+      ],
+      "raw_representation": "unsigned_integer_string",
+      "null_rule": "empty-is-observed-absence-v1",
+      "transformation": "not-projected",
+      "snapshot_availability": "Not authorized as model input.",
+      "point_in_time_availability": "unproven",
+      "leakage_risk": "Identity, target, outcome, enrichment or unreviewed-context shortcuts are excluded by strict projection.",
+      "rationale": "Excluded: encoded missingness/applicability or enrichment lineage is not sufficiently established for this optional field."
+    },
+    {
+      "name": "OSVersion",
+      "role": "candidate_input",
+      "status": "EXCLUDED",
+      "source_references": [
+        "guide",
+        "schema",
+        "policy"
+      ],
+      "raw_representation": "unsigned_integer_string",
+      "null_rule": "empty-is-observed-absence-v1",
+      "transformation": "not-projected",
+      "snapshot_availability": "Not authorized as model input.",
+      "point_in_time_availability": "unproven",
+      "leakage_risk": "Identity, target, outcome, enrichment or unreviewed-context shortcuts are excluded by strict projection.",
+      "rationale": "Excluded: encoded missingness/applicability or enrichment lineage is not sufficiently established for this optional field."
+    },
+    {
+      "name": "AntispamDirection",
+      "role": "candidate_input",
+      "status": "EXCLUDED",
+      "source_references": [
+        "guide",
+        "schema",
+        "policy"
+      ],
+      "raw_representation": "categorical_text",
+      "null_rule": "empty-is-observed-absence-v1",
+      "transformation": "not-projected",
+      "snapshot_availability": "Not authorized as model input.",
+      "point_in_time_availability": "unproven",
+      "leakage_risk": "Identity, target, outcome, enrichment or unreviewed-context shortcuts are excluded by strict projection.",
+      "rationale": "Excluded: encoded missingness/applicability or enrichment lineage is not sufficiently established for this optional field."
+    },
+    {
+      "name": "SuspicionLevel",
+      "role": "excluded",
+      "status": "EXCLUDED",
+      "source_references": [
+        "schema",
+        "policy"
+      ],
+      "raw_representation": "opaque_string",
+      "null_rule": "not-projected",
+      "transformation": "not-projected",
+      "snapshot_availability": "Not authorized as model input.",
+      "point_in_time_availability": "unproven",
+      "leakage_risk": "Identity, target, outcome, enrichment or unreviewed-context shortcuts are excluded by strict projection.",
+      "rationale": "Outside the approved candidate ceiling; retained only for its documented source/metadata role, never a predictor."
+    },
+    {
+      "name": "LastVerdict",
+      "role": "excluded",
+      "status": "EXCLUDED",
+      "source_references": [
+        "schema",
+        "policy"
+      ],
+      "raw_representation": "opaque_string",
+      "null_rule": "not-projected",
+      "transformation": "not-projected",
+      "snapshot_availability": "Not authorized as model input.",
+      "point_in_time_availability": "unproven",
+      "leakage_risk": "Identity, target, outcome, enrichment or unreviewed-context shortcuts are excluded by strict projection.",
+      "rationale": "Outside the approved candidate ceiling; retained only for its documented source/metadata role, never a predictor."
+    },
+    {
+      "name": "CountryCode",
+      "role": "excluded",
+      "status": "EXCLUDED",
+      "source_references": [
+        "schema",
+        "policy"
+      ],
+      "raw_representation": "opaque_string",
+      "null_rule": "not-projected",
+      "transformation": "not-projected",
+      "snapshot_availability": "Not authorized as model input.",
+      "point_in_time_availability": "unproven",
+      "leakage_risk": "Identity, target, outcome, enrichment or unreviewed-context shortcuts are excluded by strict projection.",
+      "rationale": "Outside the approved candidate ceiling; retained only for its documented source/metadata role, never a predictor."
+    },
+    {
+      "name": "State",
+      "role": "excluded",
+      "status": "EXCLUDED",
+      "source_references": [
+        "schema",
+        "policy"
+      ],
+      "raw_representation": "opaque_string",
+      "null_rule": "not-projected",
+      "transformation": "not-projected",
+      "snapshot_availability": "Not authorized as model input.",
+      "point_in_time_availability": "unproven",
+      "leakage_risk": "Identity, target, outcome, enrichment or unreviewed-context shortcuts are excluded by strict projection.",
+      "rationale": "Outside the approved candidate ceiling; retained only for its documented source/metadata role, never a predictor."
+    },
+    {
+      "name": "City",
+      "role": "excluded",
+      "status": "EXCLUDED",
+      "source_references": [
+        "schema",
+        "policy"
+      ],
+      "raw_representation": "opaque_string",
+      "null_rule": "not-projected",
+      "transformation": "not-projected",
+      "snapshot_availability": "Not authorized as model input.",
+      "point_in_time_availability": "unproven",
+      "leakage_risk": "Identity, target, outcome, enrichment or unreviewed-context shortcuts are excluded by strict projection.",
+      "rationale": "Outside the approved candidate ceiling; retained only for its documented source/metadata role, never a predictor."
+    },
+    {
+      "name": "Usage",
+      "role": "dataset_metadata",
+      "status": "EXCLUDED",
+      "source_references": [
+        "schema",
+        "policy"
+      ],
+      "raw_representation": "enum_string",
+      "null_rule": "not-projected",
+      "transformation": "not-projected",
+      "snapshot_availability": "Not authorized as model input.",
+      "point_in_time_availability": "unproven",
+      "leakage_risk": "Identity, target, outcome, enrichment or unreviewed-context shortcuts are excluded by strict projection.",
+      "rationale": "Outside the approved candidate ceiling; retained only for its documented source/metadata role, never a predictor."
+    },
+    {
+      "name": "snapshot_local_distinct_alert_count",
+      "role": "derived_candidate",
+      "status": "ACCEPTED",
+      "source_references": [
+        "guide",
+        "g3",
+        "policy"
+      ],
+      "raw_representation": "incident-local membership",
+      "null_rule": "nonempty-alert-membership",
+      "transformation": "log1p-distinct-alerts-v1",
+      "snapshot_availability": "Computed only from supplied incident membership; never a global or lifetime alert total.",
+      "point_in_time_availability": "unproven",
+      "leakage_risk": "Final incident size can reflect investigation. No cross-incident merging or source/time-based selection; shared-alert dependence remains for G5/G6.",
+      "rationale": "Accepted for the retrospective contract as a deterministic function of verified incident-local membership; repeated evidence cannot increase it."
+    },
+    {
+      "name": "source_partition",
+      "role": "dataset_metadata",
+      "status": "EXCLUDED",
+      "source_references": [
+        "g3",
+        "policy"
+      ],
+      "raw_representation": "opaque_string",
+      "null_rule": "not-projected",
+      "transformation": "not-projected",
+      "snapshot_availability": "Grouping/correlation metadata only.",
+      "point_in_time_availability": "unproven",
+      "leakage_risk": "Publisher partition is neither a predictor nor an Amyntor evaluation role.",
+      "rationale": "Retain original relationships without using source membership as a model input."
+    },
+    {
+      "name": "source_usage",
+      "role": "dataset_metadata",
+      "status": "EXCLUDED",
+      "source_references": [
+        "g3",
+        "policy"
+      ],
+      "raw_representation": "opaque_string",
+      "null_rule": "not-projected",
+      "transformation": "not-projected",
+      "snapshot_availability": "Grouping/correlation metadata only.",
+      "point_in_time_availability": "unproven",
+      "leakage_risk": "Publisher partition is neither a predictor nor an Amyntor evaluation role.",
+      "rationale": "Retain original relationships without using source membership as a model input."
+    }
+  ]
+}

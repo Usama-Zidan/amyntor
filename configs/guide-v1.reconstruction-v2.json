@@ -1,0 +1,13 @@
+{
+  "version": "guide-v1-reconstruction-2",
+  "canonicalization": "ordered-common-columns-json-v1",
+  "alert_invariants": ["Timestamp", "DetectorId", "AlertTitle", "Category"],
+  "batch_rows": 2048,
+  "batch_bytes": 8388608,
+  "cache_mib": 64,
+  "database_estimate_multiplier": 4,
+  "temporary_estimate_multiplier": 2,
+  "max_database_bytes": 17179869184,
+  "minimum_free_bytes": 8589934592,
+  "max_seconds": 7200
+}

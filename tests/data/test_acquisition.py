@@ -10,6 +10,7 @@ from collections.abc import Generator
 from contextlib import contextmanager
 from dataclasses import replace
 from pathlib import Path
+from typing import BinaryIO, TextIO, cast
 from zipfile import ZIP_DEFLATED, ZipFile, ZipInfo
 
 import pytest
@@ -446,22 +447,106 @@ def test_same_core_verifies_local_and_relocated_mount(
     assert verify_files(relocated, lock) == original
 
 
-@pytest.mark.parametrize("mutation", ["hash", "size", "missing", "extra", "directory"])
+@pytest.mark.parametrize(
+    "mutation", ["hash", "size", "missing", "directory", "required_directory"]
+)
 def test_mounted_mismatch_rejected(
     mutation: str, mounted_files: tuple[Path, Path], source: FakeSource
 ) -> None:
     root, lock = mounted_files
+    (root / "unrelated.csv").write_bytes(b"ignored extra")
     if mutation == "hash":
         (root / "sample.bin").write_bytes(b"x" * len(source.payload))
     elif mutation == "size":
         (root / "sample.bin").write_bytes(b"short")
     elif mutation == "missing":
         (root / "sample.bin").unlink()
-    elif mutation == "extra":
-        (root / "unexpected.bin").write_bytes(b"extra")
-    else:
+    elif mutation == "directory":
         (root / "unexpected-directory").mkdir()
+    else:
+        (root / "sample.bin").unlink()
+        (root / "sample.bin").mkdir()
     with pytest.raises(AcquisitionError):
+        verify_files(root, lock)
+
+
+def test_extra_regular_files_are_ignored_without_changing_identity_or_reading_contents(
+    mounted_files: tuple[Path, Path],
+    monkeypatch: pytest.MonkeyPatch,
+    caplog: pytest.LogCaptureFixture,
+) -> None:
+    root, lock = mounted_files
+    identity = verify_files(root, lock)
+    extra = root / "GUIDE_Test_Queue_Rankings.csv"
+    extra.write_bytes(b"unrelated task,not part of GUIDE v1\n")
+    original_open = Path.open
+
+    def protected_open(
+        path: Path,
+        mode: str = "r",
+        buffering: int = -1,
+        encoding: str | None = None,
+        errors: str | None = None,
+        newline: str | None = None,
+    ) -> BinaryIO | TextIO:
+        assert path != extra, "Unlisted payload must never be opened or hashed"
+        return cast(
+            BinaryIO | TextIO,
+            original_open(path, mode, buffering, encoding, errors, newline),
+        )
+
+    monkeypatch.setattr(Path, "open", protected_open)
+    assert verify_files(root, lock) == identity
+    assert "GUIDE_Test_Queue_Rankings.csv" in caplog.text
+    assert "Contents were not read or hashed" in caplog.text
+    assert identity["files"] == [
+        {
+            "name": "sample.bin",
+            "bytes": (root / "sample.bin").stat().st_size,
+            "sha256": hashlib.sha256((root / "sample.bin").read_bytes()).hexdigest(),
+        }
+    ]
+
+
+def test_ignored_extra_metadata_is_bounded(
+    mounted_files: tuple[Path, Path],
+    caplog: pytest.LogCaptureFixture,
+) -> None:
+    root, lock = mounted_files
+    for index in range(40):
+        (root / f"unrelated-{index:02}.csv").touch()
+    verify_files(root, lock)
+    assert "Ignored 40 unlisted regular file(s)" in caplog.text
+    assert caplog.text.count('"unrelated-') == 16
+    assert len(caplog.text) < 2000
+
+
+@pytest.mark.parametrize("required", [False, True])
+def test_mounted_symlink_entries_rejected_without_following(
+    required: bool,
+    mounted_files: tuple[Path, Path],
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    root, lock = mounted_files
+
+    class SymlinkEntry:
+        name = "sample.bin" if required else "unrelated-link.csv"
+
+        def is_symlink(self) -> bool:
+            return True
+
+        def is_file(self, *, follow_symlinks: bool) -> bool:
+            pytest.fail("Symlink must be rejected before target inspection")
+
+    @contextmanager
+    def directory(path: Path) -> Generator[object]:
+        assert path == root.resolve()
+        yield iter([SymlinkEntry()])
+
+    # Exercise link metadata on platforms where creating real symlinks needs
+    # privileges; no network, target reads or elevated test permissions required.
+    monkeypatch.setattr("amyntor.data.acquisition.os.scandir", directory)
+    with pytest.raises(AcquisitionError, match="Symlink"):
         verify_files(root, lock)
 
 

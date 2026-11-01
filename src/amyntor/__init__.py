@@ -1,5 +1,9 @@
 """Amyntor package metadata."""
 
-from importlib.metadata import version
+from importlib.metadata import PackageNotFoundError, version
 
-__version__: str = version("amyntor")
+try:
+    __version__: str = version("amyntor")
+except PackageNotFoundError:
+    # Source-only execution has no installed distribution version to report.
+    __version__ = "0+unknown"

@@ -1,0 +1,433 @@
+{
+  "version": "guide-v1-leakage-1",
+  "training_allowed": false,
+  "g4": {
+    "report_bytes": 4470,
+    "report_sha256": "f9f517f886f11bfa39e46f18a25ef63136c7f4e69169ae3bbdaa5c186a128aa2",
+    "validation_sha256": "765fcaafb7be2f20e59eca706a274b4468b2d02296129a42c33a79fb4735816f",
+    "projection_sha256": "be775e633218cd1552eff9b3def407d91963f74a3743ccca73c0b4284fe5bb43"
+  },
+  "limits": {
+    "scratch_bytes": 137438953472,
+    "max_seconds": 28800,
+    "candidate_attempts": 20000000,
+    "minimum_free_bytes": 2147483648,
+    "retained_bytes": 2147483648,
+    "cache_mib": 64,
+    "batch_rows": 2048,
+    "batch_bytes": 4194304,
+    "field_chars": 65536,
+    "payload_chars": 8388608,
+    "review_line_bytes": 65536,
+    "benchmark_incidents": 20000,
+    "benchmark_evidence_rows": 500000
+  },
+  "rules": {
+    "jaccard_numerator": 9,
+    "jaccard_denominator": 10,
+    "minimum_shared_tokens": 2,
+    "discriminative_max_incidents": 1000,
+    "review_sample_size": 100,
+    "missingness_gap": 0.1,
+    "minimum_comparison_support": 100,
+    "quarantine_bridges": true,
+    "benchmark_salt": "guide-g5-benchmark-v1|17|",
+    "token_universes": [
+      "all_verified_identity",
+      "verified_entity_only"
+    ],
+    "existing_hard_path_resolves_independence": true
+  },
+  "identifiers": [
+    {
+      "field": "AlertId",
+      "status": "VERIFIED",
+      "scope": "organization",
+      "verified_sentinels": [],
+      "ambiguous_values": [],
+      "evidence": "docs/g3-acceptance.md: accepted scoped (OrgId, AlertId) identity; valid opaque keys including zero",
+      "copy_eligible": true,
+      "representation": "unsigned_integer_string"
+    },
+    {
+      "field": "DeviceId",
+      "status": "UNRESOLVED",
+      "scope": "unresolved",
+      "verified_sentinels": [],
+      "ambiguous_values": [
+        "0",
+        "-1",
+        "Unknown",
+        "unknown",
+        "NotSet",
+        "NULL",
+        "None",
+        "N/A"
+      ],
+      "evidence": "GUIDE anonymized code scope and placeholder semantics not verified; diagnostics only; must resolve before G5 clearance",
+      "copy_eligible": false,
+      "representation": "opaque_string"
+    },
+    {
+      "field": "Sha256",
+      "status": "UNRESOLVED",
+      "scope": "unresolved",
+      "verified_sentinels": [],
+      "ambiguous_values": [
+        "0",
+        "-1",
+        "Unknown",
+        "unknown",
+        "NotSet",
+        "NULL",
+        "None",
+        "N/A"
+      ],
+      "evidence": "GUIDE anonymized code scope and placeholder semantics not verified; diagnostics only; must resolve before G5 clearance",
+      "copy_eligible": false,
+      "representation": "opaque_string"
+    },
+    {
+      "field": "IpAddress",
+      "status": "UNRESOLVED",
+      "scope": "unresolved",
+      "verified_sentinels": [],
+      "ambiguous_values": [
+        "0",
+        "-1",
+        "Unknown",
+        "unknown",
+        "NotSet",
+        "NULL",
+        "None",
+        "N/A"
+      ],
+      "evidence": "GUIDE anonymized code scope and placeholder semantics not verified; diagnostics only; must resolve before G5 clearance",
+      "copy_eligible": false,
+      "representation": "opaque_string"
+    },
+    {
+      "field": "Url",
+      "status": "UNRESOLVED",
+      "scope": "unresolved",
+      "verified_sentinels": [],
+      "ambiguous_values": [
+        "0",
+        "-1",
+        "Unknown",
+        "unknown",
+        "NotSet",
+        "NULL",
+        "None",
+        "N/A"
+      ],
+      "evidence": "GUIDE anonymized code scope and placeholder semantics not verified; diagnostics only; must resolve before G5 clearance",
+      "copy_eligible": false,
+      "representation": "opaque_string"
+    },
+    {
+      "field": "AccountSid",
+      "status": "UNRESOLVED",
+      "scope": "unresolved",
+      "verified_sentinels": [],
+      "ambiguous_values": [
+        "0",
+        "-1",
+        "Unknown",
+        "unknown",
+        "NotSet",
+        "NULL",
+        "None",
+        "N/A"
+      ],
+      "evidence": "GUIDE anonymized code scope and placeholder semantics not verified; diagnostics only; must resolve before G5 clearance",
+      "copy_eligible": false,
+      "representation": "opaque_string"
+    },
+    {
+      "field": "AccountUpn",
+      "status": "UNRESOLVED",
+      "scope": "unresolved",
+      "verified_sentinels": [],
+      "ambiguous_values": [
+        "0",
+        "-1",
+        "Unknown",
+        "unknown",
+        "NotSet",
+        "NULL",
+        "None",
+        "N/A"
+      ],
+      "evidence": "GUIDE anonymized code scope and placeholder semantics not verified; diagnostics only; must resolve before G5 clearance",
+      "copy_eligible": false,
+      "representation": "opaque_string"
+    },
+    {
+      "field": "AccountObjectId",
+      "status": "UNRESOLVED",
+      "scope": "unresolved",
+      "verified_sentinels": [],
+      "ambiguous_values": [
+        "0",
+        "-1",
+        "Unknown",
+        "unknown",
+        "NotSet",
+        "NULL",
+        "None",
+        "N/A"
+      ],
+      "evidence": "GUIDE anonymized code scope and placeholder semantics not verified; diagnostics only; must resolve before G5 clearance",
+      "copy_eligible": false,
+      "representation": "opaque_string"
+    },
+    {
+      "field": "AccountName",
+      "status": "UNRESOLVED",
+      "scope": "unresolved",
+      "verified_sentinels": [],
+      "ambiguous_values": [
+        "0",
+        "-1",
+        "Unknown",
+        "unknown",
+        "NotSet",
+        "NULL",
+        "None",
+        "N/A"
+      ],
+      "evidence": "GUIDE anonymized code scope and placeholder semantics not verified; diagnostics only; must resolve before G5 clearance",
+      "copy_eligible": false,
+      "representation": "opaque_string"
+    },
+    {
+      "field": "DeviceName",
+      "status": "UNRESOLVED",
+      "scope": "unresolved",
+      "verified_sentinels": [],
+      "ambiguous_values": [
+        "0",
+        "-1",
+        "Unknown",
+        "unknown",
+        "NotSet",
+        "NULL",
+        "None",
+        "N/A"
+      ],
+      "evidence": "GUIDE anonymized code scope and placeholder semantics not verified; diagnostics only; must resolve before G5 clearance",
+      "copy_eligible": false,
+      "representation": "opaque_string"
+    },
+    {
+      "field": "NetworkMessageId",
+      "status": "UNRESOLVED",
+      "scope": "unresolved",
+      "verified_sentinels": [],
+      "ambiguous_values": [
+        "0",
+        "-1",
+        "Unknown",
+        "unknown",
+        "NotSet",
+        "NULL",
+        "None",
+        "N/A"
+      ],
+      "evidence": "GUIDE anonymized code scope and placeholder semantics not verified; diagnostics only; must resolve before G5 clearance",
+      "copy_eligible": false,
+      "representation": "opaque_string"
+    },
+    {
+      "field": "EmailClusterId",
+      "status": "UNRESOLVED",
+      "scope": "unresolved",
+      "verified_sentinels": [],
+      "ambiguous_values": [
+        "0",
+        "-1",
+        "Unknown",
+        "unknown",
+        "NotSet",
+        "NULL",
+        "None",
+        "N/A"
+      ],
+      "evidence": "GUIDE anonymized code scope and placeholder semantics not verified; diagnostics only; must resolve before G5 clearance",
+      "copy_eligible": false,
+      "representation": "opaque_string"
+    },
+    {
+      "field": "RegistryKey",
+      "status": "UNRESOLVED",
+      "scope": "unresolved",
+      "verified_sentinels": [],
+      "ambiguous_values": [
+        "0",
+        "-1",
+        "Unknown",
+        "unknown",
+        "NotSet",
+        "NULL",
+        "None",
+        "N/A"
+      ],
+      "evidence": "GUIDE anonymized code scope and placeholder semantics not verified; diagnostics only; must resolve before G5 clearance",
+      "copy_eligible": false,
+      "representation": "opaque_string"
+    },
+    {
+      "field": "RegistryValueName",
+      "status": "UNRESOLVED",
+      "scope": "unresolved",
+      "verified_sentinels": [],
+      "ambiguous_values": [
+        "0",
+        "-1",
+        "Unknown",
+        "unknown",
+        "NotSet",
+        "NULL",
+        "None",
+        "N/A"
+      ],
+      "evidence": "GUIDE anonymized code scope and placeholder semantics not verified; diagnostics only; must resolve before G5 clearance",
+      "copy_eligible": false,
+      "representation": "opaque_string"
+    },
+    {
+      "field": "RegistryValueData",
+      "status": "UNRESOLVED",
+      "scope": "unresolved",
+      "verified_sentinels": [],
+      "ambiguous_values": [
+        "0",
+        "-1",
+        "Unknown",
+        "unknown",
+        "NotSet",
+        "NULL",
+        "None",
+        "N/A"
+      ],
+      "evidence": "GUIDE anonymized code scope and placeholder semantics not verified; diagnostics only; must resolve before G5 clearance",
+      "copy_eligible": false,
+      "representation": "opaque_string"
+    },
+    {
+      "field": "ApplicationId",
+      "status": "UNRESOLVED",
+      "scope": "unresolved",
+      "verified_sentinels": [],
+      "ambiguous_values": [
+        "0",
+        "-1",
+        "Unknown",
+        "unknown",
+        "NotSet",
+        "NULL",
+        "None",
+        "N/A"
+      ],
+      "evidence": "GUIDE anonymized code scope and placeholder semantics not verified; diagnostics only; must resolve before G5 clearance",
+      "copy_eligible": false,
+      "representation": "opaque_string"
+    },
+    {
+      "field": "ApplicationName",
+      "status": "UNRESOLVED",
+      "scope": "unresolved",
+      "verified_sentinels": [],
+      "ambiguous_values": [
+        "0",
+        "-1",
+        "Unknown",
+        "unknown",
+        "NotSet",
+        "NULL",
+        "None",
+        "N/A"
+      ],
+      "evidence": "GUIDE anonymized code scope and placeholder semantics not verified; diagnostics only; must resolve before G5 clearance",
+      "copy_eligible": false,
+      "representation": "opaque_string"
+    },
+    {
+      "field": "OAuthApplicationId",
+      "status": "UNRESOLVED",
+      "scope": "unresolved",
+      "verified_sentinels": [],
+      "ambiguous_values": [
+        "0",
+        "-1",
+        "Unknown",
+        "unknown",
+        "NotSet",
+        "NULL",
+        "None",
+        "N/A"
+      ],
+      "evidence": "GUIDE anonymized code scope and placeholder semantics not verified; diagnostics only; must resolve before G5 clearance",
+      "copy_eligible": false,
+      "representation": "opaque_string"
+    },
+    {
+      "field": "FileName",
+      "status": "UNRESOLVED",
+      "scope": "unresolved",
+      "verified_sentinels": [],
+      "ambiguous_values": [
+        "0",
+        "-1",
+        "Unknown",
+        "unknown",
+        "NotSet",
+        "NULL",
+        "None",
+        "N/A"
+      ],
+      "evidence": "GUIDE anonymized code scope and placeholder semantics not verified; diagnostics only; must resolve before G5 clearance",
+      "copy_eligible": false,
+      "representation": "opaque_string"
+    },
+    {
+      "field": "FolderPath",
+      "status": "UNRESOLVED",
+      "scope": "unresolved",
+      "verified_sentinels": [],
+      "ambiguous_values": [
+        "0",
+        "-1",
+        "Unknown",
+        "unknown",
+        "NotSet",
+        "NULL",
+        "None",
+        "N/A"
+      ],
+      "evidence": "GUIDE anonymized code scope and placeholder semantics not verified; diagnostics only; must resolve before G5 clearance",
+      "copy_eligible": false,
+      "representation": "opaque_string"
+    },
+    {
+      "field": "ResourceIdName",
+      "status": "UNRESOLVED",
+      "scope": "unresolved",
+      "verified_sentinels": [],
+      "ambiguous_values": [
+        "0",
+        "-1",
+        "Unknown",
+        "unknown",
+        "NotSet",
+        "NULL",
+        "None",
+        "N/A"
+      ],
+      "evidence": "GUIDE anonymized code scope and placeholder semantics not verified; diagnostics only; must resolve before G5 clearance",
+      "copy_eligible": false,
+      "representation": "opaque_string"
+    }
+  ]
+}

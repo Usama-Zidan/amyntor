@@ -4,6 +4,7 @@ from __future__ import annotations
 
 import hashlib
 import json
+import logging
 import os
 import re
 import stat
@@ -35,6 +36,7 @@ LICENSE_TEXT = (
 CHUNK = 1024 * 1024
 METADATA_LIMIT = 2 * 1024 * 1024
 ZIP_DIRECTORY_LIMIT = 64 * 1024
+LOGGER = logging.getLogger(__name__)
 ALLOWED_HOSTS = {
     "www.kaggle.com",
     "storage.googleapis.com",
@@ -617,7 +619,8 @@ def verify_files(root: Path, lock_path: Path) -> dict[str, object]:
     """Verify read-only mounted/local payloads against a trusted repository lock.
 
     No archive, original manifest, network, copying or writes to the mount are
-    required. The caller must trust the reviewed lock independently of the data.
+    required. Unlisted regular files are ignored, never opened or hashed. The
+    caller must trust the reviewed lock independently of the data.
     """
     lock = _read_json(lock_path)
     if (
@@ -652,9 +655,35 @@ def verify_files(root: Path, lock_path: Path) -> dict[str, object]:
         _positive(record.get("bytes"))
     # Resolve the caller-selected root once; all release members are flat names.
     root = root.resolve(strict=True)
-    _check_inventory(root, set(names))
+    # Mounted datasets may include unrelated tasks. Only pinned files establish
+    # identity; keep full acquired-bundle inventory validation strict elsewhere.
+    expected = set(names)
+    seen: set[str] = set()
+    ignored_count = 0
+    ignored_sample: list[str] = []
+    with os.scandir(root) as entries:
+        for entry in entries:
+            if entry.is_symlink():
+                raise AcquisitionError("Symlink in mounted file inventory")
+            if not entry.is_file(follow_symlinks=False):
+                raise AcquisitionError("Non-regular entry in mounted file inventory")
+            if entry.name in expected:
+                seen.add(entry.name)
+            else:
+                ignored_count += 1
+                if len(ignored_sample) < 16:
+                    ignored_sample.append(entry.name[:128])
+    if seen != expected:
+        raise AcquisitionError("Missing required mounted file inventory")
     for name, record in zip(names, records, strict=True):
         _verify_file(root / name, record["sha256"], record["bytes"])
+    if ignored_count:
+        LOGGER.warning(
+            "Ignored %d unlisted regular file(s); filename sample (at most 16, "
+            "128 characters each): %s. Contents were not read or hashed.",
+            ignored_count,
+            json.dumps(ignored_sample, ensure_ascii=True),
+        )
     return {
         "status": "VERIFIED_G1_FILES_ONLY",
         "training_allowed": False,
